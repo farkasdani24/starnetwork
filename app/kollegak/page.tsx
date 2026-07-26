@@ -7,7 +7,7 @@ export default function KollegakPage() {
     <AppShell>
       <h1 className="mb-1 text-lg font-semibold text-white">Kollégák</h1>
       <p className="mb-6 text-sm text-white/50">
-        Elérhetőségek sablon állapotban — hamarosan feltöltjük a valós adatokat.
+        A csapat elérhetőségei.
       </p>
 
       <div className="space-y-7">

@@ -1,7 +1,10 @@
 import { type TeamMember } from "@/lib/team";
+import { phoneHref, phoneDisplay } from "@/lib/phone";
 import MemberAvatar from "@/components/MemberAvatar";
 
 export default function TeamMemberCard({ member }: { member: TeamMember }) {
+  const hasContact = member.email1 || member.email2 || member.phone;
+
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-space-900/80 p-3.5 backdrop-blur">
       <MemberAvatar name={member.name} photoUrl={member.photoUrl} />
@@ -10,29 +13,27 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
         <p className="truncate text-sm font-semibold text-white">{member.name}</p>
         <p className="truncate text-xs text-white/50">{member.role}</p>
 
-        <div className="mt-1.5 space-y-0.5 text-xs text-white/40">
-          <p className="truncate">
-            {member.email1 ? (
-              <a href={`mailto:${member.email1}`} className="hover:text-white/70">{member.email1}</a>
-            ) : (
-              "e-mail 1 – hamarosan"
+        {hasContact && (
+          <div className="mt-1.5 space-y-0.5 text-xs text-white/40">
+            {member.email1 && (
+              <p className="truncate">
+                <a href={`mailto:${member.email1}`} className="hover:text-white/70">{member.email1}</a>
+              </p>
             )}
-          </p>
-          <p className="truncate">
-            {member.email2 ? (
-              <a href={`mailto:${member.email2}`} className="hover:text-white/70">{member.email2}</a>
-            ) : (
-              "e-mail 2 – hamarosan"
+            {member.email2 && (
+              <p className="truncate">
+                <a href={`mailto:${member.email2}`} className="hover:text-white/70">{member.email2}</a>
+              </p>
             )}
-          </p>
-          <p className="truncate">
-            {member.phone ? (
-              <a href={`tel:${member.phone}`} className="hover:text-white/70">{member.phone}</a>
-            ) : (
-              "telefonszám – hamarosan"
+            {member.phone && (
+              <p className="truncate">
+                <a href={phoneHref(member.phone)} className="hover:text-white/70">
+                  {phoneDisplay(member.phone)}
+                </a>
+              </p>
             )}
-          </p>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
